@@ -3,7 +3,7 @@
 <div class="container" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50" (scrolled)="loadNewPaintings()">
   <ngx-masonry [options]="masonryOptions" [ordered]="true">
     <div *ngFor="let paiting of galleryData" class="gallery-card-section masonry-item" ngxMasonryItem >
-      <img [src]="paiting.primaryimageurl" [alt]="paiting.title" class="gallery-card-image" *ngIf="paiting.primaryimageurl">
+      <img [src]="paiting.primaryimageurl" [alt]="paiting.title" class="gallery-card-image" *ngIf="paiting.primaryimageurl" (click)="showPaitingOverlay(paiting.primaryimageurl)">
       <img *ngIf="!paiting.primaryimageurl" src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/47564240674395.5606e2ce19dc1.jpg" alt="harvard_logos" class="gallery-card-image">
       <div class="gallery-card-description">
         <span class="gallery-description-number">{{ paiting.objectnumber }}</span>
@@ -16,7 +16,6 @@
     bdColor = "rgba(255,255,255,0.8)" size = "default" color = "#000000" type = "pacman" [fullScreen] = "true"
     ><p style="color: black">Cargando ...</p></ngx-spinner>
 </div>
-
 
 
 <div class="alert alert-primary" *ngIf="lastScroll">

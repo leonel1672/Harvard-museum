@@ -3,12 +3,16 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { GalleryService } from './services/gallery.service';
 import { Painting } from './models/item-gallery/item-gallery.model'
 import { animate, style } from '@angular/animations';
+import {MatDialog} from '@angular/material/dialog';
+import { OverlayGalleryComponent } from './components/overlay-gallery/overlay-gallery.component';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnInit{
   galleryData: Painting[] = [];
   pageNumber: number = 1;
@@ -39,7 +43,8 @@ export class AppComponent implements OnInit{
 
   constructor(
     private gs: GalleryService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    public dialog: MatDialog
   ){}
 
   ngOnInit(){
@@ -47,10 +52,12 @@ export class AppComponent implements OnInit{
   }
 
   loadGallery(indexPage: number){
+    this.spinner.show();
     this.gs.getGallery(indexPage).subscribe( paitingData => {
       this.galleryData = paitingData['records'];
       this.totalPages = paitingData['info'].pages;
       this.pageNumber = paitingData['info'].page;
+      this.spinner.hide();
     })
   }
 
@@ -71,4 +78,17 @@ export class AppComponent implements OnInit{
     }
   }
 
+  showPaitingOverlay(urlImage){
+    this.dialog.open(OverlayGalleryComponent, {
+      data: {image: urlImage},
+      width: '600px',
+    });
+  }
 }
+ 
+
+
+
+
+
+
