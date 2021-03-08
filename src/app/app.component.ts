@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { animate, style } from '@angular/animations';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { GalleryService } from './services/gallery.service';
 import { Painting } from './models/item-gallery/item-gallery.model'
+import { animate, style } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
@@ -14,18 +14,61 @@ export class AppComponent implements OnInit{
   pageNumber: number = 1;
   lastScroll: boolean = false;
   totalPages: number = null;
+  animations = {
+    show: [
+      style({opacity: 0}),
+      animate('400ms ease-in', style({opacity: 1})),
+    ],
+    hide: [
+      style({opacity: '*'}),
+      animate('400ms ease-in', style({opacity: 0})),
+    ]
+  };
+  masonryOptions = {
+    columnWidth: 10,
+    gutter: 30,
+    stamp: 'stamp',
+    fitWidth: true,
+    originLeft: true,
+    originTop: true,
+    resize: true,
+    initLayout: true,
+    horizontalOrder: true,
+    animations: this.animations
+  }
 
   constructor(
     private gs: GalleryService,
     private spinner: NgxSpinnerService
   ){}
 
-  ngOnInit(){}
+  ngOnInit(){
+    this.loadGallery(this.pageNumber)
+  }
 
-  loadGallery(){}
+  loadGallery(indexPage: number){
+    this.gs.getGallery(indexPage).subscribe( paitingData => {
+      this.galleryData = paitingData['records'];
+      this.totalPages = paitingData['info'].pages;
+      this.pageNumber = paitingData['info'].page;
+    })
+  }
 
-  addToGallery(){}
+  addToGallery(indexPage: number){
+    this.gs.getGallery(indexPage).subscribe( paitingData =>{
+      for(let data of paitingData['records']){
+        this.galleryData.push(data)
+      }
+      this.spinner.hide()
+    })
+  }
 
-  loadNewPaintings(){}
+  loadNewPaintings(){
+    if(this.totalPages > this.pageNumber){
+        this.spinner.show();
+        this.pageNumber ++;
+        this.addToGallery(this.pageNumber)
+    }
+  }
 
 }

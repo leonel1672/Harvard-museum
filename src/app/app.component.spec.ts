@@ -1,5 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { GalleryService } from './services/gallery.service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -7,6 +9,9 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      imports: [ HttpClientModule],
+      providers: [GalleryService]
+
     }).compileComponents();
   }));
 
@@ -15,17 +20,5 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
-
-  it(`should have as title 'harvard-museum'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('harvard-museum');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('harvard-museum app is running!');
-  });
+ 
 });
