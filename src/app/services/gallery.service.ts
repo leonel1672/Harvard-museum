@@ -6,9 +6,9 @@ import {HttpClient} from '@angular/common/http'
   providedIn: 'root'
 })
 export class GalleryService {
-  apikey: string = 'b69c55ec-ae48-429b-b88c-5732213d8e72';
-  urlBase: string = "https://api.harvardartmuseums.org";
-  options = {
+  private apikey: string = 'b69c55ec-ae48-429b-b88c-5732213d8e72';
+  private urlBase: string = "https://api.harvardartmuseums.org";
+  private options = {
     params: {
       apikey: this.apikey,
       sort: 'rank',
