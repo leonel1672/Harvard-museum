@@ -16,8 +16,8 @@ import { OverlayGalleryComponent } from './components/overlay-gallery/overlay-ga
 export class AppComponent implements OnInit{
   galleryData: Painting[] = [];
   pageNumber: number = 1;
-  lastScroll: boolean = false;
   totalPages: number = null;
+  lastPage: boolean = false
   animations = {
     show: [
       style({opacity: 0}),
@@ -75,6 +75,8 @@ export class AppComponent implements OnInit{
         this.spinner.show();
         this.pageNumber ++;
         this.addToGallery(this.pageNumber)
+    }else {
+      this.lastPage = true
     }
   }
 
