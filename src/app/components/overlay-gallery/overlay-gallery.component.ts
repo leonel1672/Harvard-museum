@@ -11,7 +11,7 @@ export class OverlayGalleryComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: {image: string}) { }
 
-  ngOnInit(): void {
+  ngOnInit(){
   }
 
 }
