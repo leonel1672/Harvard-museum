@@ -5,6 +5,16 @@
 
 ## Empezando
 
+### Correr el proyecto
+
+Para visualizar el proyecto ejecutamos en la terminal  
+* **docker pull leonel1672/harvardmuseum** 
+
+Una ves descargado el contenerdor ejecutamos  
+* **docker run --rm -it  -p 80:80/tcp leonel1672/harvardmuseum:v1**  
+
+Ya iniciado escribimos en el navegador [localhost](http://localhost/)
+
 ### Requerimientos
 
 * [Node](www.nodejs.org) v12 o posterior
